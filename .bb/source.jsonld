@@ -1,0 +1,58 @@
+{
+  "@context": "../../context/source.context.jsonld",
+  "@type": "dcat:Dataset",
+  "@id": "https://biobricks.ai/bricks/eutoxrisk-temposeq-kg",
+  "dcterms:title": "EU-ToxRisk TempO-Seq knowledge graph (TempO-Seq x WikiPathways)",
+  "dcterms:description": "The 'eutoxrisk-temposeq-kg' brick builds a knowledge graph linking EU-ToxRisk TempO-Seq gene-expression data to biological pathways. Its build stage reads the 'eutoxrisk' brick assets (pathways, overview and temposeq parquet, derived from EU-ToxRisk TempO-Seq data retrieved from the EdelweissData platform, Douglas Connect) and the 'wikipathways' brick (queried via an HDT/SPARQL store). It therefore inherits the same upstream sources as the eutoxrisk-temposeq brick: EU-ToxRisk TempO-Seq data (license unstated) and WikiPathways (CC0).",
+  "dcterms:license": [
+    {
+      "@id": "UNSTATED",
+      "dcterms:title": "EU-ToxRisk TempO-Seq data from EdelweissData carries no stated license"
+    },
+    "https://creativecommons.org/publicdomain/zero/1.0/"
+  ],
+  "dcterms:creator": "EU-ToxRisk consortium (via Douglas Connect / EdelweissData); WikiPathways",
+  "dcterms:publisher": "Douglas Connect (EdelweissData); WikiPathways",
+  "dcterms:identifier": "biobricks assets: eutoxrisk, wikipathways",
+  "biobricks:licenseName": "UNSTATED (EU-ToxRisk TempO-Seq via EdelweissData) + CC0 1.0 (WikiPathways)",
+  "biobricks:licenseClass": "unknown",
+  "biobricks:merckCommercialUse": "prohibited",
+  "biobricks:licenseEvidence": [
+    {
+      "source": "stages/scratch.py",
+      "quote": "eutoxrisk = bb.assets('eutoxrisk') ... pathways = pd.read_parquet(eutoxrisk.pathways_parquet) ... temposeq = pd.read_parquet(eutoxrisk.temposeq_parquet) ... wikipathways = bb.assets('wikipathways') ... store = HDTStore(wikipathways.wikipathways_hdt)",
+      "confidence": "high"
+    },
+    {
+      "source": "README",
+      "quote": "# eutoxrisk-kg",
+      "confidence": "low"
+    },
+    {
+      "source": "biobricks:eutoxrisk-temposeq (upstream brick)",
+      "quote": "EU-ToxRisk TempO-Seq data is pulled from Douglas Connect / EdelweissData with no license statement in the source repository; WikiPathways is understood to be released under CC0 1.0.",
+      "confidence": "medium"
+    }
+  ],
+  "biobricks:reviewed": false,
+  "biobricks:reviewNotes": "Determined by the annotation agent (Claude licensing-provenance annotator). This knowledge-graph brick is a derivative of the 'eutoxrisk' (TempO-Seq) and 'wikipathways' biobricks (see stages/scratch.py, which reads both via bb.assets). It carries no license annotation of its own and inherits its terms from those upstreams: EU-ToxRisk TempO-Seq data from EdelweissData has NO discoverable license, and WikiPathways is understood to be CC0 (unverified here - the license page returned HTTP 403). Under most-restrictive-governs, the dataset is classed 'unknown' and commercial use is marked 'prohibited' as the conservative verdict for unstated redistribution rights. HUMAN CHECK REQUIRED: resolve the EU-ToxRisk TempO-Seq license on EdelweissData and confirm WikiPathways CC0; this brick's classification should track whatever is decided for eutoxrisk-temposeq.",
+  "prov:wasDerivedFrom": [
+    {
+      "@type": "dcat:Dataset",
+      "@id": "https://biobricks.ai/bricks/eutoxrisk-temposeq",
+      "dcterms:title": "EU-ToxRisk TempO-Seq gene expression data (EdelweissData id d8922983-1724-4ce8-af07-93f290d9c3c2)",
+      "dcterms:license": {
+        "@id": "UNSTATED",
+        "dcterms:title": "No license stated on EdelweissData or in the repository"
+      },
+      "dcterms:publisher": "Douglas Connect (EdelweissData)"
+    },
+    {
+      "@type": "dcat:Dataset",
+      "@id": "https://www.wikipathways.org",
+      "dcterms:title": "WikiPathways",
+      "dcterms:license": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "dcterms:publisher": "WikiPathways"
+    }
+  ]
+}
